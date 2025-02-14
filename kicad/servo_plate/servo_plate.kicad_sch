@@ -1703,6 +1703,12 @@
 		)
 	)
 	(junction
+		(at 153.67 82.55)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "1ea969a8-2510-4aec-8138-d34f0e3a9fc6")
+	)
+	(junction
 		(at 184.15 110.49)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -1713,6 +1719,12 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "4ee94fec-fa7b-4b73-98ec-985e140f361c")
+	)
+	(junction
+		(at 153.67 74.93)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "6f831f23-a339-433f-83ae-0bb9fa2df3c3")
 	)
 	(junction
 		(at 189.23 52.07)
@@ -1796,7 +1808,7 @@
 	)
 	(wire
 		(pts
-			(xy 149.86 76.2) (xy 160.02 76.2)
+			(xy 149.86 74.93) (xy 153.67 74.93)
 		)
 		(stroke
 			(width 0)
@@ -1826,6 +1838,16 @@
 	)
 	(wire
 		(pts
+			(xy 163.83 81.28) (xy 163.83 82.55)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6d4efe15-0e85-4425-b601-ab78c0012201")
+	)
+	(wire
+		(pts
 			(xy 179.07 110.49) (xy 184.15 110.49)
 		)
 		(stroke
@@ -1833,6 +1855,26 @@
 			(type default)
 		)
 		(uuid "7e01b0c1-f15c-4b2a-8f7a-377cb95a93ab")
+	)
+	(wire
+		(pts
+			(xy 153.67 82.55) (xy 148.59 82.55)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "856b89d5-7b96-4aa2-9a10-a430e53821af")
+	)
+	(wire
+		(pts
+			(xy 161.29 74.93) (xy 161.29 76.2)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "856e1184-c451-48c8-a314-fe2330ab7fd0")
 	)
 	(wire
 		(pts
@@ -1846,6 +1888,16 @@
 	)
 	(wire
 		(pts
+			(xy 153.67 74.93) (xy 161.29 74.93)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "8ff3d9ab-0e7d-48b5-8f28-4a28b359bedb")
+	)
+	(wire
+		(pts
 			(xy 190.5 113.03) (xy 190.5 115.57)
 		)
 		(stroke
@@ -1856,7 +1908,17 @@
 	)
 	(wire
 		(pts
-			(xy 148.59 82.55) (xy 154.94 82.55)
+			(xy 163.83 82.55) (xy 153.67 82.55)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9c3aa6a6-b85e-49fe-ac21-e47bc4139f83")
+	)
+	(wire
+		(pts
+			(xy 163.83 81.28) (xy 165.1 81.28)
 		)
 		(stroke
 			(width 0)
@@ -1906,7 +1968,7 @@
 	)
 	(wire
 		(pts
-			(xy 149.86 76.2) (xy 149.86 80.01)
+			(xy 149.86 74.93) (xy 149.86 80.01)
 		)
 		(stroke
 			(width 0)
@@ -2110,7 +2172,7 @@
 			)
 		)
 	)
-	(global_label "SW1"
+	(global_label "BUTTON"
 		(shape input)
 		(at 179.07 120.65 0)
 		(fields_autoplaced yes)
@@ -2120,9 +2182,9 @@
 			)
 			(justify left)
 		)
-		(uuid "6b18d92e-41b3-4d60-8295-951237fcb084")
+		(uuid "8106eae3-2a0d-4d21-b693-a05288e6d311")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 185.9256 120.65 0)
+			(at 189.2519 120.65 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2217,6 +2279,76 @@
 				)
 				(justify left)
 				(hide yes)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:C")
+		(at 153.67 78.74 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "02e576bf-f8eb-4a21-9e87-2c1b1f51f6b8")
+		(property "Reference" "C2"
+			(at 157.48 77.4699 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "1uf"
+			(at 157.48 80.0099 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
+			(at 154.6352 82.55 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 153.67 78.74 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Unpolarized capacitor"
+			(at 153.67 78.74 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "5cce9416-aa5f-4466-98d4-dce3b685cd27")
+		)
+		(pin "1"
+			(uuid "fb970be8-c539-4624-a138-008d622d5be0")
+		)
+		(instances
+			(project ""
+				(path "/5e15e14e-53de-4d47-aff7-4d61b34e8085"
+					(reference "C2")
+					(unit 1)
+				)
 			)
 		)
 	)
@@ -2422,7 +2554,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 160.02 76.2 0)
+		(at 161.29 76.2 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -2431,7 +2563,7 @@
 		(fields_autoplaced yes)
 		(uuid "2c83e25a-04fd-4c2a-a44a-25cc89e31cac")
 		(property "Reference" "#PWR04"
-			(at 160.02 82.55 0)
+			(at 161.29 82.55 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2440,7 +2572,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 160.02 81.28 0)
+			(at 161.29 81.28 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2448,7 +2580,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 160.02 76.2 0)
+			(at 161.29 76.2 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2457,7 +2589,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 160.02 76.2 0)
+			(at 161.29 76.2 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2466,7 +2598,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 160.02 76.2 0)
+			(at 161.29 76.2 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2619,7 +2751,7 @@
 	)
 	(symbol
 		(lib_id "power:VBUS")
-		(at 154.94 82.55 0)
+		(at 165.1 81.28 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -2627,7 +2759,7 @@
 		(dnp no)
 		(uuid "668f0450-9aec-430d-8566-c53153973321")
 		(property "Reference" "#PWR06"
-			(at 154.94 86.36 0)
+			(at 165.1 85.09 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2636,7 +2768,7 @@
 			)
 		)
 		(property "Value" "5V+"
-			(at 154.94 78.486 0)
+			(at 165.1 77.216 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2644,7 +2776,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 154.94 82.55 0)
+			(at 165.1 81.28 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2653,7 +2785,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 154.94 82.55 0)
+			(at 165.1 81.28 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2662,7 +2794,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"VBUS\""
-			(at 154.94 82.55 0)
+			(at 165.1 81.28 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3324,7 +3456,7 @@
 				(hide yes)
 			)
 		)
-		(property "Footprint" "Connector_JST:JST_PH_B5B-PH-K_1x05_P2.00mm_Vertical"
+		(property "Footprint" "TerminalBlock_TE-Connectivity:TerminalBlock_TE_282834-5_1x05_P2.54mm_Horizontal"
 			(at 173.99 115.57 0)
 			(effects
 				(font
