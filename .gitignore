@@ -1,0 +1,3 @@
+# ignore .gradle everwhere in the project
+
+.gradle
