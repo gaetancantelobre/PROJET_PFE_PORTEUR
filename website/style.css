@@ -1,0 +1,78 @@
+body {
+  font-family: "Titillium Web", sans-serif;
+  background-color: #F3EEEA;
+  margin: 0;
+  padding-top: 0;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  position: absolute;
+  left: 200px;
+  right: 200px;
+  height: 100%;
+  top: 40px;
+}
+
+a {
+  transition: 0.3s;
+  text-decoration: none;
+}
+
+a:link {
+  color: #776B5D;
+}
+
+a:visited {
+  color: #776B5D;
+}
+
+a:hover {
+  color: #B0A695;
+}
+
+p {
+  color: #B0A695;    
+  font-weight: 500;
+  font-size: 1.2rem; /* Increased font size */
+}
+
+h1 {
+  font-size: 3.5rem; /* Increased font size */
+  color: #776B5D;
+  cursor: pointer;
+  font-weight: 700;
+  margin-bottom: -1.1rem;
+  white-space: nowrap;
+}
+
+h2 {
+  font-size: 1.8rem; /* Increased font size */
+  color: #776B5D;
+  font-weight: 600;
+  margin-bottom: -0.6rem;
+}
+
+h3 {
+  font-size: 1.3rem; /* Increased font size */
+  color: #B0A695;
+  font-weight: 500;
+}
+
+.sidenav a p {
+  text-shadow: 2px 1px 2px #0d0c0e;
+}
+
+.sidenav a:hover {
+  color: #776B5D;
+}
+
+.report-title-block p{
+  margin-top: 2.3rem;
+  margin-left: 0.6rem;
+  font-size: 0.8rem;
+}
+
+.report-title-block {
+  display: flex;
+  flex-direction: row;
+}
