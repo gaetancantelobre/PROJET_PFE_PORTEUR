@@ -5,7 +5,6 @@ import os
 
 import asyncio
 import tello_edu_protocol as tello
-sys.path.append(os.path.join(os.path.dirname(__file__), '..', '/Tello-controller/tello-edu-py-main/tello_edu_protocol/'))
 from tello_edu_protocol.commands import (
     takeoff,
     cw,
