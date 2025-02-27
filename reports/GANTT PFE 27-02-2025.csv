@@ -1,0 +1,10 @@
+Outline Level,ID,Name,Start,Finish,Duration,% Complete,Predecessors,Resource Names,Color,Notes
+1,1,"Complete project",2025-02-10,2025-03-28,35 day,0,"","",301,"<p><br></p>"
+2,2,"First version of the Mini3 controller",2025-02-10,2025-02-14,5 day,0,"","",,"<p><br></p>"
+2,3,"First version of the Matrice300 harness",2025-02-17,2025-02-21,5 day,0,"2FS","",,"<p><br></p>"
+2,4,"First version of the harness software",2025-02-24,2025-02-28,5 day,0,"3FS","",,"<p><br></p>"
+2,9,"Setup the Tello Edu controller and demo",2025-02-24,2025-02-28,5 day,0,"","",31,"<p><br></p>"
+2,5,"Functionnal testing of the harness and drone without Matrice300",2025-03-03,2025-03-07,5 day,0,"4FS,9FS","",,"<p><br></p>"
+2,6,"First version of the harness connected to the Matrice300, and Mini3 ( no flying )",2025-03-10,2025-03-14,5 day,0,"5FS","",,"<p><br></p>"
+2,7,"Testing with multiple drones, and piloting the Matrice300",2025-03-17,2025-03-21,5 day,0,"6FS","",,"<p><br></p>"
+2,8,"Prepare the oral presentation, clean the code, and make some last tests",2025-03-24,2025-03-28,5 day,0,"7FS","",,"<p><br></p>"
