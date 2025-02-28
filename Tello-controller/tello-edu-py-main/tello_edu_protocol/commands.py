@@ -52,6 +52,10 @@ def takeoff() -> Tuple[str, Fmt]:
 
     return 'takeoff', ok_err_fmt
 
+def initiate_throw_takeoff() -> Tuple[str, Fmt]:
+    """Allows you to take off by throwing your drone within 5 seconds of this command."""
+    return 'throwfly', ok_err_fmt
+
 
 def land() -> Tuple[str, Fmt]:
     '''Auto landing.'''
