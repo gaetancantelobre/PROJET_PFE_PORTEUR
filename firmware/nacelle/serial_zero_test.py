@@ -5,9 +5,10 @@ ser = serial.Serial('/dev/serial0', 115200)  # Default UART on Pi is /dev/serial
 #GPIO 14 (TX) and GPIO 15 (RX)
 # Wait for the connection to establish
 time.sleep(2)
-
-# Send a serial message
-ser.write(b'Hello, Raspberry Pi!\n')
+while(1):
+    msg = input(" msg to send??")
+    # Send a serial message
+    ser.write(msg.encode())
 
 # Close the serial connection when done
 ser.close()
