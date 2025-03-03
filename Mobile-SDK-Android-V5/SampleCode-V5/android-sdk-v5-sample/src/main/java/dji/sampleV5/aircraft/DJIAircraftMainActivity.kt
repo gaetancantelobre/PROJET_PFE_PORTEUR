@@ -23,10 +23,8 @@ class DJIAircraftMainActivity : DJIMainActivity() {
         GeoidManager.getInstance().init(this)
 
         enableDefaultLayout(DefaultLayoutActivity::class.java)
-        enableWidgetList(WidgetsActivity::class.java)
     }
 
     override fun prepareTestingToolsActivity() {
-        enableTestingTools(AircraftTestingToolsActivity::class.java)
     }
 }
