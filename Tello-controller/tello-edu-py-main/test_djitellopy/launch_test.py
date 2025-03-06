@@ -12,7 +12,7 @@ time.sleep(2)
 tello.initiate_throw_takeoff()
 time.sleep(1)
 
-ser.write(b"90\n")  # Send as raw bytes
+ser.write(b"0\n")  # Send as raw bytes
 
 #GPIO 14 (TX) and GPIO 15 (RX)
 # Wait for the connection to establish
