@@ -3,14 +3,20 @@ import time
 import serial
 
 ser = serial.Serial('/dev/serial0', 115200)  # Default UART on Pi is /dev/serial0 (or /dev/ttyAMA0)
+
+ser.write(b"0\n")  # Send as raw bytes
+time.sleep(8)
+ser.write(b"90\n")  # Send as raw bytes
+time.sleep(2)
+
 # Connect to the drone
 tello = Tello(host="192.168.93.187")
 tello.connect()
-time.sleep(2)
+time.sleep(1)
 
 # Start flight
 tello.initiate_throw_takeoff()
-time.sleep(1)
+time.sleep(2)
 
 ser.write(b"0\n")  # Send as raw bytes
 
