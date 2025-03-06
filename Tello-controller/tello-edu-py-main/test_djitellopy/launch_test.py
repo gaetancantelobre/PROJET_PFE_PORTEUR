@@ -28,7 +28,7 @@ ser.close()
 
 
 # Move the drone
-
+tello.move_forward(30)
 
 tello.land()  # Land the drone
 
