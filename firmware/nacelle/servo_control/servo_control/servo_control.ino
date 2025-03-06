@@ -15,11 +15,12 @@ void setup() {
     ledStrip.begin();
     ledStrip.show(); // Initialize LED strip
     
-    myServo.write(45);
+    myServo.write(45); // Set initial servo position
 
     Serial1.begin(115200); // Initialize UART (RX: GP1, TX: GP0 by default)
     ledStrip.setPixelColor(0, ledStrip.Color(0, 255, 0));
     ledStrip.show();
+    
     // Check if Serial1 starts properly, blink onboard LED if it fails
     if (!Serial1) {
         while (true) {
@@ -38,17 +39,19 @@ void loop() {
         digitalWrite(ONBOARD_LED, HIGH); // Turn on onboard LED when receiving data
         String received = Serial1.readStringUntil('\n');
         received.trim(); // Remove extra spaces and newlines
-        Serial.println(received);
-
-        if (received == "on") {
-            myServo.write(180);
-            ledStrip.setPixelColor(0, ledStrip.Color(255, 0, 0)); // Red
-            ledStrip.show();
-        } else if (received == "off") {
-            myServo.write(0);
-            ledStrip.setPixelColor(0, ledStrip.Color(0, 255, 0)); // Green
+        
+        int servoPos = received.toInt(); // Convert received string to integer
+        
+        if (servoPos >= 0 && servoPos <= 180) { // Check if within valid servo range
+            myServo.write(servoPos);
+            
+            // Set LED color based on position (example: red at 180, green at 0)
+            int red = map(servoPos, 0, 180, 0, 255);
+            int green = map(servoPos, 0, 180, 255, 0);
+            ledStrip.setPixelColor(0, ledStrip.Color(red, green, 0));
             ledStrip.show();
         }
+        
         delay(100); // Briefly keep LED on
         digitalWrite(ONBOARD_LED, LOW); // Turn off onboard LED after processing
     }
