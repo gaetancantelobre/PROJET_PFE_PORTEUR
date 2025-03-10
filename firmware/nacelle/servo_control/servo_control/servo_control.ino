@@ -7,6 +7,9 @@
 #define ONBOARD_LED 25 // Onboard LED for Pi Pico
 #define SWITCH1 10
 
+int loading_mode = 0;
+
+
 void set_servo_angle(int i)
 {
   if(i > 100)
@@ -49,15 +52,21 @@ void setup() {
     ledStrip.show();
 }
 
-
+void launch_procedure()
+{
+  set_servo_angle(90);
+  ledStrip.setPixelColor(0, ledStrip.Color(0, 255, 0));
+}
 
 
 void loop() {
 
-  if(!closed && !digitalRead(SWITCH1))
+  if(!closed && !digitalRead(SWITCH1) && loading_mode)
   {
     closed = 1;
-    set_servo_angle(100);
+    set_servo_angle(90);
+    Serial1.write("loaded");
+    ledStrip.setPixelColor(0, ledStrip.Color(255, 0, 0));
   }
     
 
@@ -66,19 +75,17 @@ void loop() {
       String received = Serial1.readStringUntil('\n');
       received.trim(); // Remove extra spaces and newlines
       
-      int servoPos = received.toInt(); // Convert received string to integer
+      if(received == "load")
+        loading_mode = 1;
+      if(received == "launch")
+        launch_procedure()
       
-      if (servoPos >= 0 && servoPos <= 180) { // Check if within valid servo range
-          set_servo_angle(servoPos);
-          
-          // Set LED color based on position (example: red at 180, green at 0)
-          int red = map(servoPos, 0, 180, 0, 255);
-          int green = map(servoPos, 0, 180, 255, 0);
-          ledStrip.setPixelColor(0, ledStrip.Color(red, green, 0));
-          ledStrip.show();
-      }
       
-      delay(100); // Briefly keep LED on
-      digitalWrite(ONBOARD_LED, LOW); // Turn off onboard LED after processing
+      
+      // Set LED color based on position (example: red at 180, green at 0)
+      // int red = map(servoPos, 0, 180, 0, 255);
+      // int green = map(servoPos, 0, 180, 255, 0);
+      // ledStrip.setPixelColor(0, ledStrip.Color(red, green, 0));
+      // ledStrip.show();
   }
 }
