@@ -22,6 +22,10 @@ while(loaded is False):
    loaded = msg.strip() == "loaded"
 
 
+answer = ""
+while(answer != "launch"):
+    answer = input("When ready for launch : \"launch\" ")
+
 print("takeoff")
 ser.write("launch\n".encode())
 
