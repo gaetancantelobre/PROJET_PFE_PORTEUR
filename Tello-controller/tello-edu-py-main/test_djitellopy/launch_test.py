@@ -27,12 +27,12 @@ while(answer != "launch"):
     answer = input("When ready for launch : \"launch\" ")
 
 print("takeoff")
+tello.initiate_throw_takeoff()
+time.sleep(1)
 ser.write("launch\n".encode())
 
 # Start flight
-
-#tello.initiate_throw_takeoff()
-#time.sleep(2)
+tello.move_forward(30)
 
 #ser.write(b"0\n")  # Send as raw bytes
 
@@ -42,6 +42,6 @@ ser.write("launch\n".encode())
 # Close the serial connection when done
 ser.close()
 
-
+tello.land()
 # Disconnect
 tello.end()
