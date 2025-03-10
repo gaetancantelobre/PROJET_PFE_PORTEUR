@@ -23,6 +23,8 @@ while(loaded is False):
 
 
 print("takeoff")
+ser.write("launch\n".encode())
+
 # Start flight
 
 #tello.initiate_throw_takeoff()
