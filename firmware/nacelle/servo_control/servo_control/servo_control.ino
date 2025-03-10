@@ -1,11 +1,13 @@
 #include <Servo.h>
 #include <Adafruit_NeoPixel.h>
-
+#include "rp2040.h"
 #define LED_PIN 6    // Pin for WS2812B LED
 #define NUM_LEDS 1   // Number of LEDs
 #define SERVO_PIN 2  // Pin for the servo
 #define ONBOARD_LED 25 // Onboard LED for Pi Pico
 #define SWITCH1 10
+
+#define RESTART_BUT 14
 
 int loading_mode = 0;
 Servo myServo;
@@ -38,6 +40,8 @@ void setup() {
     ledStrip.setPixelColor(0, ledStrip.Color(0, 255, 0));
     ledStrip.show();
     pinMode(SWITCH1,INPUT_PULLUP);
+    pinMode(RESTART_BUT,INPUT_PULLUP);
+
     
     // Check if Serial1 starts properly, blink onboard LED if it fails
     if (!Serial1) {
@@ -58,9 +62,15 @@ void launch_procedure()
   ledStrip.setPixelColor(0, ledStrip.Color(0, 255, 0));
 }
 
+void check_restart()
+{
+  if(!digitalRead(RESTART_BUT))
+    NVIC_SystemReset();
+}
+
 
 void loop() {
-
+  check_restart();
   if(!closed && !digitalRead(SWITCH1) && loading_mode)
   {
     closed = 1;
