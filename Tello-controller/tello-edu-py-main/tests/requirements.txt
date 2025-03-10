@@ -1,1 +1,0 @@
-tello-edu-protocol @ git+https://github.com/zaruhev/tello-edu-py
