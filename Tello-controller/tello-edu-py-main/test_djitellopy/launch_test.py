@@ -8,17 +8,19 @@ tello.connect()
 time.sleep(1)
 
 answer = ""
-while(answer is not "load"):
+while(answer != "load"):
     answer = input("Select next order")
+    print(answer)
 
 loaded = False
 # Connect to the drone
-ser.write("load".encode())
+ser.write("load\n".encode())
 
 while(loaded is False):
-   msg =  ser.readall()
+   msg = ser.readline().decode().strip()
    print(msg) if msg is not None else None  
-   loaded = True if msg == "loaded" else False
+   loaded = msg.strip() == "loaded"
+
 
 print("takeoff")
 # Start flight

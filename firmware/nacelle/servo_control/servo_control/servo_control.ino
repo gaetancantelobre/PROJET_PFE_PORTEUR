@@ -8,6 +8,7 @@
 #define SWITCH1 10
 
 int loading_mode = 0;
+Servo myServo;
 
 
 void set_servo_angle(int i)
@@ -23,12 +24,10 @@ void set_servo_angle(int i)
 
 
 int closed = 0;
-Servo myServo;
 Adafruit_NeoPixel ledStrip(NUM_LEDS, LED_PIN, NEO_GRB + NEO_KHZ800);
 
 void setup() {
     pinMode(ONBOARD_LED, OUTPUT); // Set onboard LED as output
-    myServo.attach(SERVO_PIN);
     ledStrip.begin();
     ledStrip.show(); // Initialize LED strip
     
@@ -78,7 +77,7 @@ void loop() {
       if(received == "load")
         loading_mode = 1;
       if(received == "launch")
-        launch_procedure()
+        launch_procedure();
       
       
       
