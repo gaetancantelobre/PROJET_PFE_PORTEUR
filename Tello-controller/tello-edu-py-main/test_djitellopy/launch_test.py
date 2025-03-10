@@ -30,6 +30,7 @@ print("takeoff")
 tello.initiate_throw_takeoff()
 time.sleep(1)
 ser.write("launch\n".encode())
+time.sleep(3)
 
 # Start flight
 tello.move_forward(30)
