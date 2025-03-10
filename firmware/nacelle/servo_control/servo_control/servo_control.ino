@@ -26,7 +26,8 @@ void set_servo_angle(int i)
 int closed = 0;
 Adafruit_NeoPixel ledStrip(NUM_LEDS, LED_PIN, NEO_GRB + NEO_KHZ800);
 
-void setup() {
+void setup() { 
+    myServo.attach(SERVO_PIN);
     pinMode(ONBOARD_LED, OUTPUT); // Set onboard LED as output
     ledStrip.begin();
     ledStrip.show(); // Initialize LED strip
@@ -53,7 +54,7 @@ void setup() {
 
 void launch_procedure()
 {
-  set_servo_angle(90);
+  set_servo_angle(0);
   ledStrip.setPixelColor(0, ledStrip.Color(0, 255, 0));
 }
 
@@ -64,8 +65,10 @@ void loop() {
   {
     closed = 1;
     set_servo_angle(90);
-    Serial1.write("loaded");
+    Serial1.write("loaded\n");
     ledStrip.setPixelColor(0, ledStrip.Color(255, 0, 0));
+    ledStrip.show();
+
   }
     
 
@@ -75,7 +78,14 @@ void loop() {
       received.trim(); // Remove extra spaces and newlines
       
       if(received == "load")
+      { 
         loading_mode = 1;
+        Serial.println(" entered loading mode");
+        ledStrip.setPixelColor(0, ledStrip.Color(0, 0, 255));
+        ledStrip.show();
+
+      }
+        
       if(received == "launch")
         launch_procedure();
       
@@ -85,6 +95,6 @@ void loop() {
       // int red = map(servoPos, 0, 180, 0, 255);
       // int green = map(servoPos, 0, 180, 255, 0);
       // ledStrip.setPixelColor(0, ledStrip.Color(red, green, 0));
-      // ledStrip.show();
+      ledStrip.show();
   }
 }
