@@ -11,6 +11,27 @@ body {
   right: 200px;
   height: 100%;
   top: 40px;
+  display: flex;
+  flex-direction: row;
+}
+
+.left_pannel {
+  display: flex;
+  flex-direction: column;
+}
+
+.right_pannel {
+  display: flex;
+  flex-direction: column;
+  margin-left: 200px;
+}
+
+video { 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+  margin-right: 5rem;
 }
 
 a {
