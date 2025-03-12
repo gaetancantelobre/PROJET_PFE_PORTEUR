@@ -9,9 +9,9 @@ time.sleep(1)
 
 answer = ""
 while(answer != "load"):
-    answer = input("Select next order")
-    print(answer)
+    answer = input("Select next order ? \n")
 
+print("You can load the drone now.\n")
 loaded = False
 # Connect to the drone
 ser.write("load\n".encode())
@@ -21,6 +21,7 @@ while(loaded is False):
    print(msg) if msg is not None else None  
    loaded = msg.strip() == "loaded"
 
+print("Drone is loaded.")
 
 answer = ""
 while(answer != "launch"):
