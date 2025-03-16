@@ -44,7 +44,7 @@ class Nacelle_controller:
         response = self.send_serial_message(msg)
         if response is not None:
             print("failed to set")
-        else
+        else:
             self.grabber_status = response.split()
             
         

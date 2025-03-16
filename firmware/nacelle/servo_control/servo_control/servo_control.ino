@@ -8,7 +8,7 @@
 #define SWITCH1 10
 
 #define OPEN_ANGLE 90
-#define CLOSE_ANGLE 0
+#define CLOSE_ANGLE 5
 
 #define RESTART_BUT 14
 
