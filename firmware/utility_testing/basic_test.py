@@ -11,7 +11,7 @@ print(f"Battery: {tello.get_battery()}%")  # Check battery level
 tello.takeoff()
 
 # Move the drone
-tello.move_forward(50)  # Move forward 50 cm
+tello.flip_forward()  # Move forward 50 cm
 
 tello.land()  # Land the drone
 
