@@ -2,6 +2,7 @@ from djitellopy import Tello
 import time
 import serial
 
+ADD_FLIP = 1
 ser = serial.Serial('/dev/serial0', 115200)  # Default UART on Pi is /dev/serial0 (or /dev/ttyAMA0)
 tello = Tello(host="192.168.93.187")
 tello.connect()
@@ -35,6 +36,9 @@ time.sleep(3)
 
 # Start flight
 tello.move_forward(30)
+if(ADD_FLIP):
+    tello.flip_forward()
+    tello.flip_back()
 
 #ser.write(b"0\n")  # Send as raw bytes
 
