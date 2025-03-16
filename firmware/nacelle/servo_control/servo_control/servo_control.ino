@@ -1,11 +1,14 @@
 #include <Servo.h>
 #include <Adafruit_NeoPixel.h>
-#include "rp2040.h"
+#include "hardware/watchdog.h" 
 #define LED_PIN 6    // Pin for WS2812B LED
 #define NUM_LEDS 1   // Number of LEDs
 #define SERVO_PIN 2  // Pin for the servo
 #define ONBOARD_LED 25 // Onboard LED for Pi Pico
 #define SWITCH1 10
+
+#define OPEN_ANGLE 90
+#define CLOSE_ANGLE 0
 
 #define RESTART_BUT 14
 
@@ -29,12 +32,14 @@ int closed = 0;
 Adafruit_NeoPixel ledStrip(NUM_LEDS, LED_PIN, NEO_GRB + NEO_KHZ800);
 
 void setup() { 
+    loading_mode = 0;
+    closed = 0;
     myServo.attach(SERVO_PIN);
     pinMode(ONBOARD_LED, OUTPUT); // Set onboard LED as output
     ledStrip.begin();
     ledStrip.show(); // Initialize LED strip
     
-   set_servo_angle(0); // Set initial servo position
+   set_servo_angle(OPEN_ANGLE); // Set initial servo position
 
     Serial1.begin(115200); // Initialize UART (RX: GP1, TX: GP0 by default)
     ledStrip.setPixelColor(0, ledStrip.Color(0, 255, 0));
@@ -58,14 +63,18 @@ void setup() {
 
 void launch_procedure()
 {
-  set_servo_angle(0);
+  set_servo_angle(OPEN_ANGLE);
   ledStrip.setPixelColor(0, ledStrip.Color(0, 255, 0));
 }
 
 void check_restart()
 {
   if(!digitalRead(RESTART_BUT))
-    NVIC_SystemReset();
+  {
+    setup();
+    watchdog_reboot(0, 0, 0);
+
+  }
 }
 
 
@@ -74,7 +83,7 @@ void loop() {
   if(!closed && !digitalRead(SWITCH1) && loading_mode)
   {
     closed = 1;
-    set_servo_angle(90);
+    set_servo_angle(CLOSE_ANGLE);
     Serial1.write("loaded\n");
     ledStrip.setPixelColor(0, ledStrip.Color(255, 0, 0));
     ledStrip.show();

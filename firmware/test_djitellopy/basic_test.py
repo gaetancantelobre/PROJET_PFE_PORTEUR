@@ -8,7 +8,7 @@ tello.connect()
 print(f"Battery: {tello.get_battery()}%")  # Check battery level
 
 # Start flight
-tello.initiate_throw_takeoff()
+tello.takeoff()
 
 # Move the drone
 tello.move_forward(50)  # Move forward 50 cm
