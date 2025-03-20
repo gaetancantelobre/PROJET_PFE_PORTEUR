@@ -1,10 +1,17 @@
 from djitellopy import Tello
 import time
 import serial
+import json
 
-ADD_FLIP = 1
+with open("demo_settings.json", "r") as file:
+    config = json.load(file)
+
+# Assign values to variables
+DRONE_IP = config["drone_ip"]
+ADD_FLIP = config["add_flip"]
+
 ser = serial.Serial('/dev/serial0', 115200)  # Default UART on Pi is /dev/serial0 (or /dev/ttyAMA0)
-tello = Tello(host="192.168.93.187")
+tello = Tello(host=DRONE_IP)
 tello.connect()
 time.sleep(1)
 
@@ -40,12 +47,7 @@ if(ADD_FLIP):
     tello.flip_forward()
     tello.flip_back()
 
-#ser.write(b"0\n")  # Send as raw bytes
 
-#GPIO 14 (TX) and GPIO 15 (RX)
-# Wait for the connection to establish
-
-# Close the serial connection when done
 ser.close()
 
 tello.land()
