@@ -106,14 +106,13 @@ void loop() {
       }
         
       if(received == "launch")
+      {
         launch_procedure();
-      
-      
-      
-      // Set LED color based on position (example: red at 180, green at 0)
-      // int red = map(servoPos, 0, 180, 0, 255);
-      // int green = map(servoPos, 0, 180, 255, 0);
-      // ledStrip.setPixelColor(0, ledStrip.Color(red, green, 0));
+        while(1)
+        {
+          check_restart();
+        }
+      }
       ledStrip.show();
   }
 }
