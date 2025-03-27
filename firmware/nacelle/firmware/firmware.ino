@@ -130,9 +130,9 @@ public:
     unsigned long startMillis = millis();  // Start timer
     while (millis() - startMillis < duration_ms) {
       if (isButtonPressed()) {
-        setActive(1);
         return true;
       }
+      delay(10);
     }
     return false;  // Return false if button not pressed within the duration
   }
@@ -201,7 +201,7 @@ void check_restart()
 void loop() {
   digitalWrite(ONBOARD_LED, LOW);
   check_restart();
-  if(grabbers[0].isButtonPressed() ||grabbers[1].isButtonPressed() )
+  if(grabbers[0].isButtonPressed() || grabbers[1].isButtonPressed() )
   {
     digitalWrite(ONBOARD_LED, HIGH);
 
@@ -213,6 +213,8 @@ void loop() {
     int moduleNum = -1;
     Serial.println("Recieved some thing");
     digitalWrite(ONBOARD_LED, HIGH);
+    delay(500);
+    digitalWrite(ONBOARD_LED,LOW);
     Serial.println(received);
     // Check if the received string has "load X" or similar
 
@@ -224,14 +226,11 @@ void loop() {
       if (moduleNum >= 1 && moduleNum <= grabbers.size()) {
         // Perform load action for the correct module
         bool loaded = grabbers[moduleNum - 1].load_procedure(15000);  // Open the specified grabber
-        if (loaded)
+        if (!loaded)
           Serial1.println("Loaded : " + String(moduleNum));
         else
           Serial1.println("failed to load");
       }
-
-
-
 
     } else if (received.startsWith("status_req")) {
       // Parse the number after "load"

@@ -24,7 +24,7 @@ class Nacelle_controller:
 
         }
 
-    def send_serial_message(self,message,timeout=5):
+    def send_serial_message(self,message,timeout=10):
         try:
             with serial.Serial('/dev/serial0', self.baudrate,timeout=timeout) as ser: 
                 time.sleep(0.1)  # Small delay to stabilize connection
