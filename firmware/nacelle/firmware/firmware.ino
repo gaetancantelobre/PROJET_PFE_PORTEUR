@@ -180,6 +180,7 @@ void serial_check()
 void setup() { 
     start_modules();
     loading_mode = 0;
+    Serial.begin(115200);
     Serial1.begin(115200); // Initialize UART (RX: GP1, TX: GP0 by default)
     pinMode(RESTART_BUT,INPUT_PULLUP);
     serial_check();
@@ -200,7 +201,7 @@ void loop() {
   if (Serial1.available() > 0) {
       String received = Serial.readString(); // Read the input command
       int moduleNum = -1;
-      Serial.println()
+      Serial.println(received);
       // Check if the received string has "load X" or similar
       if (received.startsWith("load")) {
           // Parse the number after "load"

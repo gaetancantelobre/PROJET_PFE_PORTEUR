@@ -18,7 +18,9 @@ class Nacelle_controller:
                 "force_cycle" : [self.open, 1,"Unloads grabber module. Takes the target grabber id"],
                 "force_open" : [self.force_open, 0,"Opens all grabbing modules"],
                 "force_close" : [self.force_close, 0,"Closes all grabbing modules"],
-                "help" : [self.help,0,"Prints a list of commands and their parameters"]
+                "help" : [self.help,0,"Prints a list of commands and their parameters"],
+                "hello_world" : [self.hello_world,0,"Says hello to the nacelle"]
+
 
 
         }
@@ -39,6 +41,10 @@ class Nacelle_controller:
         except serial.SerialException as e:
             print(f"Serial error: {e}")
      
+
+    def hello_world(self):
+        self.send_serial_message("Hello nacelle")
+        
     def load_nacelle(self,target): #done
         msg = ""
         if(int(target)> 0 and target <= self.used_grabbers):
