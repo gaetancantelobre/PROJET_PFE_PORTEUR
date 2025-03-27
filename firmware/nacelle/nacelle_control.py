@@ -48,7 +48,8 @@ class Nacelle_controller:
     def load_nacelle(self,target): #done
         msg = ""
         if(int(target)> 0 and int(target) < 5):
-            msg = "load {target}\n"
+            msg = f"load {target}\n"
+
         else:
             return print("target set failed, out of range or incorrect input")
         response = self.send_serial_message(msg,timeout=20)
