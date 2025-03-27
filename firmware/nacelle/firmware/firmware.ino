@@ -200,7 +200,7 @@ void loop() {
   if (Serial1.available() > 0) {
       String received = Serial.readString(); // Read the input command
       int moduleNum = -1;
-
+      Serial.println()
       // Check if the received string has "load X" or similar
       if (received.startsWith("load")) {
           // Parse the number after "load"
