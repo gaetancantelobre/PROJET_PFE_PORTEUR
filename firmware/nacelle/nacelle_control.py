@@ -12,10 +12,12 @@ class Nacelle_controller:
                 "status": [self.get_nacelle_status,0,"Asks and waits for a status update frome the nacelle."],
                 "reset": [self.reset_nacelle,0,"Reset the pi pico on the nacelle, closing all grabbing modules."],
                 "token_demo": [self.token_demo,4,"A useless token to demonstrate how the CMD terminal and tokens work together."],
-                "load" : [self.load_nacelle,1,"Loads grabber modules. Takes the target grabber id as a parameter or \"ALL\" to load all, waits for confirmation and a list of the load grabber modules"],
-                "open" : [self.open, 1,"Unloads grabber module. Takes the target grabber id or \"ALL\""],
-                "force_open" : [self.force_open, 1,"Opens all grabbing modules"],
-                "force_close" : [self.force_close, 1,"Closes all grabbing modules"],
+                "load" : [self.load_nacelle,1,"Loads grabber modules. Takes the target grabber id as a parameter, waits for confirmation and a list of the load grabber modules"],
+                "open" : [self.open, 1,"Opens grabber module. Takes the target grabber id "],
+                "close" : [self.close, 1,"Closes grabber module. Takes the target grabber id "],
+                "force_cycle" : [self.open, 1,"Unloads grabber module. Takes the target grabber id"],
+                "force_open" : [self.force_open, 0,"Opens all grabbing modules"],
+                "force_close" : [self.force_close, 0,"Closes all grabbing modules"],
                 "help" : [self.help,0,"Prints a list of commands and their parameters"]
 
 
@@ -23,7 +25,7 @@ class Nacelle_controller:
 
     def send_serial_message(self,message,timeout=5):
         try:
-            with serial.Serial('/dev/serial0', self.baudrate,timeout=timeout) as ser:  # Set read timeout to 1s
+            with serial.Serial('/dev/serial0', self.baudrate,timeout=timeout) as ser: 
                 time.sleep(0.1)  # Small delay to stabilize connection
                 ser.write(message.encode())  # Send message
                 start_time = time.time()  # Record start time
@@ -37,49 +39,51 @@ class Nacelle_controller:
         except serial.SerialException as e:
             print(f"Serial error: {e}")
      
-    def load_nacelle(self,target):
+    def load_nacelle(self,target): #done
         msg = ""
-        if(target == "all"):
-            msg = "load all"
-        elif(int(target)> 0 and target <= self.used_grabbers):
+        if(int(target)> 0 and target <= self.used_grabbers):
             msg = "load {target}"
         else:
             return print("target set failed, out of range or incorrect input")
         response = self.send_serial_message(msg)
-        if response is not None:
-            print("failed to set")
+        if response == "failed to load":
+            print("Failed to load, took more than the given time")
         else:
-            self.grabber_status = response.split()
+           print(f" Grabber {target} loaded.")
             
-
 
     def token_demo(self,arg1,arg2,arg3,arg4):
         print("Good job you use the demo token correctly !\n")
         print(f"You add the following arguments to the token : {arg1}, {arg2}, {arg3}, {arg4} !\n")
         return
     
-    def open(self,id):
+    def open(self,id):#done
         reponse = self.send_serial_message("open " + str(id))
-        print("grabber " + str(id) + " openned.") if reponse == "open_1" else print("COMMUNCATION FAILED, CHECK PHYSICAL CONNECTION")
+        print("grabber " + str(id) + " openned.") if reponse == "open_success" else print("COMMUNCATION FAILED, CHECK PHYSICAL CONNECTION")
         return
 
-    def force_open(self,id):
-        reponse = self.send_serial_message("open " + str(id))
+    def close(self,id):#done
+        reponse = self.send_serial_message("close " + str(id))
+        print("grabber " + str(id) + " closed.") if reponse == "close_success" else print("COMMUNCATION FAILED, CHECK PHYSICAL CONNECTION")
+        return
+
+    def force_open(self): #done
+        reponse = self.send_serial_message("force_open")
         print("all grabbers openned.") if reponse == "open_forced" else print("COMMUNCATION FAILED, CHECK PHYSICAL CONNECTION")
         return
 
         
-    def force_close(self,id):
-        reponse = self.send_serial_message("open " + str(id))
-        print("all grabbers close.") if reponse == "open_forced" else print("COMMUNCATION FAILED, CHECK PHYSICAL CONNECTION")        
+    def force_close(self): #done
+        reponse = self.send_serial_message("force_closed" + str(id))
+        print("all grabbers close.") if reponse == "close_forced" else print("COMMUNCATION FAILED, CHECK PHYSICAL CONNECTION")        
         return
 
-    def reset_nacelle(self):
+    def reset_nacelle(self): #done
         response = self.send_serial_message("reset_req")
         print("RESET CONFIRMED") if response == "reset confirmation" else print("COMMUNCATION FAILED, CHECK PHYSICAL CONNECTION")
         return
             
-    def get_nacelle_status(self):
+    def get_nacelle_status(self): #done
         response = self.send_serial_message("status_req")
         print(response) if response is not None else print("COMMUNCATION FAILED, CHECK PHYSICAL CONNECTION")
         return    

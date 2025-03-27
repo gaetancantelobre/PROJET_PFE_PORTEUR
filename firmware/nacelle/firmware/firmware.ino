@@ -63,7 +63,7 @@ class GrabberModule {
         status_led.setPixelColor(0, status_led.Color(0, 255, 0));
         status_led.show();
 
-        currentAngle = angle;
+        currentAngle = openAngle;
       }
 
 
@@ -74,14 +74,14 @@ class GrabberModule {
 
       void setActive(int i)
       {
-        i = constrain(i,0,1)
+        i = constrain(i,0,1);
         active = 1;
       }
 
       void closeServo()
       {
         servo.write(closeAngle);
-        currentAngle = angle;
+        currentAngle = closeAngle;
         status_led.setPixelColor(0, status_led.Color(125, 255, 0));
         status_led.show();
 
@@ -123,14 +123,14 @@ class GrabberModule {
 
       bool launch_procedure()
       {
-        if(getActive)
+        if(getActive())
         {
           open_procedure();
           setActive(0);
           return true;
         }
-        else
-          return false;
+      
+        return false;
       }
 
       bool load_procedure(unsigned long duration_ms) {
@@ -185,10 +185,7 @@ void setup() {
     serial_check();
 }
 
-void open_procedure()
-{
-  set_servo_angle(OPEN_ANGLE);
-}
+
 
 void check_restart()
 {
@@ -211,14 +208,49 @@ void loop() {
           if (moduleNum >= 1 && moduleNum <= grabbers.size()) {
               // Perform load action for the correct module
               Serial1.println("Entered loading mode for module " + String(moduleNum));
-              bool loaded = grabbers[moduleNum - 1].load_procedure(); // Open the specified grabber
+              bool loaded = grabbers[moduleNum - 1].load_procedure(15000); // Open the specified grabber
               if(loaded)
-                Serial1.println("Loaded");
+                Serial1.println("Loaded : " + String(moduleNum));
               else
-                Serial1.println("Unloaded");
+                Serial1.println("failed to load");
           }
       }
-
+      else if (received.startsWith("status_req")) {
+        // Parse the number after "load"
+        String allStatuses = "";
+        int grabberId = 1; // Assuming grabbers are numbered starting from 1
+        for (auto &grabber : grabbers) {
+            // Get the status of the current grabber
+            String status = (grabber.getServoState() == 1) ? "open" : "closed"; // Modify based on status logic
+    
+            // Append grabber ID and status to the allStatuses string
+            allStatuses += "Grabber " + String(grabberId) + " : " + status + "  ";
+    
+            // Increment the grabber ID for the next grabber
+            grabberId++;
+        }
+        Serial1.println(allStatuses);
+        }
+      else if (received.startsWith("open")) {
+        // Parse the number after "load"
+        moduleNum = received.substring(5).toInt();
+        if (moduleNum >= 1 && moduleNum <= grabbers.size()) {
+            // Perform load action for the correct module
+            
+           grabbers[moduleNum - 1].open_procedure(); // Open the specified grabber
+          Serial1.println("open_success");
+        }
+    }
+      else if (received.startsWith("close")) {
+        // Parse the number after "load"
+        moduleNum = received.substring(5).toInt();
+        if (moduleNum >= 1 && moduleNum <= grabbers.size()) {
+            // Perform load action for the correct module
+            
+          grabbers[moduleNum - 1].close_procedure(); // Open the specified grabber
+          Serial1.println("close_success");
+        }
+    }
       // Handle other commands for modules
       else if (received.startsWith("launch")) {
         // Parse the number after "load"
@@ -229,20 +261,29 @@ void loop() {
             if(launch)
               Serial1.println("Launch succesful");
             else
-              Serial1.println("Module " + String(moduleNum) +" not loaded.")
+              Serial1.println("Module " + String(moduleNum) +" not loaded.");
         }
       }
 
-      else if (received == "open_force") {
+      else if (received.startsWith("status_req")) {
+        Serial1.println("reset confirmation");
+        setup();
+        watchdog_reboot(0, 0, 0);
+      }
+
+      else if (received == "force_open") {
           for (auto &grabber : grabbers) {
               grabber.open_procedure();
           }
+        Serial1.println("open_forced");
+
       }
 
-      else if (received == "close_force") {
+      else if (received == "force_close") {
           for (auto &grabber : grabbers) {
               grabber.close_procedure();
           }
+        Serial1.println("close_forced");
       }
 
       else if (received == "cycle_force") {
@@ -254,17 +295,7 @@ void loop() {
           }
       }
 
-      else if (received == "check_load") {
-          for (int i = 0; i < grabbers.size(); i++) {
-              if (grabbers[i].getServoStatus()) {
-                  Serial1.println("Module " + String(i + 1) + " is open.");
-              } else {
-                  Serial1.println("Module " + String(i + 1) + " is closed.");
-              }
-          }
-      }
-
       else
-        Serial1.println("Unknown command refer to \"help\" command.")
+        Serial1.println("Unknown command refer to \"help\" command.");
   }
 }
