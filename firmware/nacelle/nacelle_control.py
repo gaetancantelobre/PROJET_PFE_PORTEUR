@@ -4,7 +4,6 @@ import time
 class Nacelle_controller:
     def __init__(self, baudrate):
         #GPIO 14 (TX) and GPIO 15 (RX)
-        self.used_grabbers = 1
         self.grabber_status = [0,0,0,0]
         self.baudrate = baudrate
         time.sleep(2)
@@ -48,7 +47,7 @@ class Nacelle_controller:
 
     def load_nacelle(self,target): #done
         msg = ""
-        if(int(target)> 0 and target <= self.used_grabbers):
+        if(int(target)> 0 and int(target) < 5):
             msg = "load {target}"
         else:
             return print("target set failed, out of range or incorrect input")
