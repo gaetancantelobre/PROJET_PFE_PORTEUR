@@ -227,7 +227,10 @@ void loop() {
         // Perform load action for the correct module
         bool loaded = grabbers[moduleNum - 1].load_procedure(15000);  // Open the specified grabber
         if (loaded)
+        {
           Serial1.println("Loaded : " + String(moduleNum));
+          grabbers[moduleNum - 1].close_procedure();
+        }
         else
           Serial1.println("failed to load");
       }

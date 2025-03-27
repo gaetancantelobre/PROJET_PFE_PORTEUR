@@ -1,5 +1,17 @@
 import serial
 import time
+import json
+from djitellopy import Tello
+
+with open("demo_settings.json", "r") as file:
+    config = json.load(file)
+
+# Assign values to variables
+DRONE_IP = config["drone_ip"]
+ADD_FLIP = config["add_flip"]
+
+
+
 
 class Nacelle_controller:
     def __init__(self, baudrate):
@@ -18,6 +30,7 @@ class Nacelle_controller:
                 "force_open" : [self.force_open, 0,"Opens all grabbing modules"],
                 "force_close" : [self.force_close, 0,"Closes all grabbing modules"],
                 "help" : [self.help,0,"Prints a list of commands and their parameters"],
+                "demo" : [self.demo,1,"Demo program to use after a drone is loaded and ready to drop"],
                 "hello" : [self.hello_world,0,"Says hello to the nacelle"]
 
 
@@ -41,6 +54,36 @@ class Nacelle_controller:
             print(f"Serial error: {e}")
      
 
+    def demo(self, id):
+        tello = Tello(host=DRONE_IP)
+        
+        try:
+            tello.connect()
+        except Exception as e:
+            print(f"Error connecting to the drone: {e}")
+            return
+        
+        print("takeoff")
+        try:
+            tello.initiate_throw_takeoff()
+            time.sleep(1)
+            self.open(id)
+            
+            # Start flight
+            tello.move_forward(30)
+            if ADD_FLIP:
+                tello.flip_forward()
+                tello.flip_back()
+            
+            tello.land()
+        except Exception as e:
+            print(f"Error during flight: {e}")
+        finally:
+            # Disconnect
+            tello.end()
+
+
+
     def hello_world(self):
         reponse = self.send_serial_message("Hello nacelle")
         print("Nacelle : " + reponse)
@@ -49,7 +92,6 @@ class Nacelle_controller:
         msg = ""
         if(int(target)> 0 and int(target) < 5):
             msg = f"load {target}\n"
-
         else:
             return print("target set failed, out of range or incorrect input")
         response = self.send_serial_message(msg,timeout=20)
