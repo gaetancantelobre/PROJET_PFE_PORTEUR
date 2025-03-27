@@ -201,6 +201,11 @@ void check_restart()
 void loop() {
   digitalWrite(ONBOARD_LED, LOW);
   check_restart();
+  if(grabbers[0].isButtonPressed() ||grabbers[1].isButtonPressed() )
+  {
+    digitalWrite(ONBOARD_LED, HIGH);
+
+  }
 
   if (Serial1.available() > 0) {
     String received = Serial1.readStringUntil('\n');
@@ -210,18 +215,24 @@ void loop() {
     digitalWrite(ONBOARD_LED, HIGH);
     Serial.println(received);
     // Check if the received string has "load X" or similar
+
+
+
     if (received.startsWith("load")) {
       // Parse the number after "load"
       moduleNum = received.substring(5).toInt();
       if (moduleNum >= 1 && moduleNum <= grabbers.size()) {
         // Perform load action for the correct module
-        Serial1.println("Entered loading mode for module " + String(moduleNum));
         bool loaded = grabbers[moduleNum - 1].load_procedure(15000);  // Open the specified grabber
         if (loaded)
           Serial1.println("Loaded : " + String(moduleNum));
         else
           Serial1.println("failed to load");
       }
+
+
+
+
     } else if (received.startsWith("status_req")) {
       // Parse the number after "load"
       String allStatuses = "";
