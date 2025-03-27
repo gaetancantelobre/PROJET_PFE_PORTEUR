@@ -126,7 +126,8 @@ class Nacelle_controller:
                 
                 
 nacelle = Nacelle_controller(115200)
-nacelle.send_action()
+while(1):
+    nacelle.send_action()
 
         
         
