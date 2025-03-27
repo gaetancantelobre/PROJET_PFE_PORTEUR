@@ -184,6 +184,7 @@ void setup() {
     Serial1.begin(115200); // Initialize UART (RX: GP1, TX: GP0 by default)
     pinMode(RESTART_BUT,INPUT_PULLUP);
     serial_check();
+    Serial.println("Hello nacelle is up !!");
 }
 
 
@@ -198,9 +199,13 @@ void check_restart()
 }
 
 void loop() {
+
   if (Serial1.available() > 0) {
-      String received = Serial.readString(); // Read the input command
+      String received = Serial1.readStringUntil('\n');
+
       int moduleNum = -1;
+      Serial.println("Recieved some thing");
+
       Serial.println(received);
       // Check if the received string has "load X" or similar
       if (received.startsWith("load")) {

@@ -25,7 +25,7 @@ class Nacelle_controller:
 
         }
 
-    def send_serial_message(self,message,timeout=5000):
+    def send_serial_message(self,message,timeout=5):
         try:
             with serial.Serial('/dev/serial0', self.baudrate,timeout=timeout) as ser: 
                 time.sleep(0.1)  # Small delay to stabilize connection
@@ -44,7 +44,7 @@ class Nacelle_controller:
 
     def hello_world(self):
         self.send_serial_message("Hello nacelle")
-        
+
     def load_nacelle(self,target): #done
         msg = ""
         if(int(target)> 0 and target <= self.used_grabbers):
