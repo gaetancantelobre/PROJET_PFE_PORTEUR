@@ -237,6 +237,10 @@ void loop() {
         }
         Serial1.println(allStatuses);
         }
+
+      else if (received.startsWith("Hello")) {
+        Serial1.println("Copy Copy");
+      }
       else if (received.startsWith("open")) {
         // Parse the number after "load"
         moduleNum = received.substring(5).toInt();

@@ -43,7 +43,8 @@ class Nacelle_controller:
      
 
     def hello_world(self):
-        self.send_serial_message("Hello nacelle")
+        reponse = self.send_serial_message("Hello nacelle")
+        print("Nacelle : " + reponse)
 
     def load_nacelle(self,target): #done
         msg = ""
