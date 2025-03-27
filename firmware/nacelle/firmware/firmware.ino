@@ -199,13 +199,15 @@ void check_restart()
 }
 
 void loop() {
+  digitalWrite(ONBOARD_LED, LOW);  
+  check_restart();
 
   if (Serial1.available() > 0) {
       String received = Serial1.readStringUntil('\n');
 
       int moduleNum = -1;
       Serial.println("Recieved some thing");
-
+      digitalWrite(ONBOARD_LED, HIGH);
       Serial.println(received);
       // Check if the received string has "load X" or similar
       if (received.startsWith("load")) {
@@ -275,7 +277,7 @@ void loop() {
         }
       }
 
-      else if (received.startsWith("status_req")) {
+      else if (received.startsWith("reset_req")) {
         Serial1.println("reset confirmation");
         setup();
         watchdog_reboot(0, 0, 0);

@@ -19,7 +19,7 @@ class Nacelle_controller:
                 "force_open" : [self.force_open, 0,"Opens all grabbing modules"],
                 "force_close" : [self.force_close, 0,"Closes all grabbing modules"],
                 "help" : [self.help,0,"Prints a list of commands and their parameters"],
-                "hello_world" : [self.hello_world,0,"Says hello to the nacelle"]
+                "hello" : [self.hello_world,0,"Says hello to the nacelle"]
 
 
 
@@ -81,7 +81,7 @@ class Nacelle_controller:
 
         
     def force_close(self): #done
-        reponse = self.send_serial_message("force_closed" + str(id))
+        reponse = self.send_serial_message("force_closed")
         print("all grabbers close.") if reponse == "close_forced" else print("COMMUNCATION FAILED, CHECK PHYSICAL CONNECTION")        
         return
 
@@ -92,6 +92,7 @@ class Nacelle_controller:
             
     def get_nacelle_status(self): #done
         response = self.send_serial_message("status_req")
+        print(response)
         print(response) if response is not None else print("COMMUNCATION FAILED, CHECK PHYSICAL CONNECTION")
         return    
         
