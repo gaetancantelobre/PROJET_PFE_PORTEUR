@@ -1,5 +1,4 @@
 {
-    "drone_ip": "192.168.93.187",
-    "add_flip": true
-  }
-  
+  "drone_ip": "192.168.93.164",
+  "add_flip": true
+}
